@@ -58,7 +58,7 @@ class LibraryContainer extends PlexData {
   }
 }
 
-class Directory extends PlexData<Directory> {
+class Directory extends PlexData {
   bool allowSync;
   String art;
   String composite;
@@ -130,7 +130,7 @@ class Directory extends PlexData<Directory> {
       };
 }
 
-class Location extends PlexData<Location> {
+class Location extends PlexData {
   int id;
   String path;
 

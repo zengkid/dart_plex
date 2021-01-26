@@ -54,7 +54,7 @@ class PlexConnection {
     return container.fromJson(jsonData['MediaContainer']);
   }
 
-  Future<PlexContainer> sectionMetadatas(String sectionId,
+  Future<PlexContainer<M>> section<M extends PlexMetadata>(String sectionId,
       {String type,
       Map<String, String> params,
       bool localServer = true}) async {
@@ -66,16 +66,16 @@ class PlexConnection {
     var jsonData = await requestJson('/library/sections/$sectionId/all',
         params: params, localServer: localServer);
 
-    var container = PlexContainer();
+    var container = PlexContainer<M>();
     return container.fromJson(jsonData['MediaContainer']);
   }
 
-  Future<PlexContainer> sectionMetadata(String key,
+  Future<PlexContainer<M>> metadata<M extends PlexMetadata>(String key,
       {Map<String, String> params, bool localServer = true}) async {
     var jsonData =
         await requestJson(key, params: params, localServer: localServer);
 
-    var container = PlexContainer();
+    var container = PlexContainer<M>();
     return container.fromJson(jsonData['MediaContainer']);
   }
 }

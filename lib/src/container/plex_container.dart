@@ -4,7 +4,7 @@ import 'package:dart_plex/src/exception/plex_exception.dart';
 import 'plex_data.dart';
 
 /// path: /library/sections/<sectionId>/all
-class PlexContainer extends PlexData {
+class PlexContainer<M extends PlexMetadata> extends PlexData {
   int size;
   bool allowSync;
   String art;
@@ -20,9 +20,9 @@ class PlexContainer extends PlexData {
   String title2;
   String viewGroup;
   int viewMode;
-  List<PlexMetadata> metadatas;
+  List<M> metadatas;
 
-  PlexContainer fromJson(dynamic json) {
+  PlexContainer<M> fromJson(dynamic json) {
     assert(json != null);
     size = json['size'];
     allowSync = json['allowSync'];
@@ -41,10 +41,10 @@ class PlexContainer extends PlexData {
     viewMode = json['viewMode'];
     if (json['Metadata'] != null) {
       var jsonList = json['Metadata'] as List;
-      metadatas = jsonList
-          .map((e) => createMetadataByViewGroup(json['viewGroup'] as String)
-              .fromJson(e))
-          .toList();
+      metadatas = jsonList.map((e) {
+        // var
+        return createMetadata(M, json['viewGroup'] as String).fromJson(e) as M;
+      }).toList();
     }
     return this;
   }
@@ -69,7 +69,7 @@ class PlexContainer extends PlexData {
         'metadatas': metadatas,
       };
 
-  PlexMetadata createMetadataByViewGroup(String viewGroup) {
+  M createMetadataByViewGroup<M extends PlexMetadata>(String viewGroup) {
     if (viewGroup == null) {
       throw PlexException('can not find viewGroup');
     }
@@ -86,5 +86,12 @@ class PlexContainer extends PlexData {
         break;
     }
     return metadata;
+  }
+
+  M createMetadata(Type type, String viewGroup) {
+    if (META_DATA_TYPES.containsKey(type)) {
+      return META_DATA_TYPES[type]();
+    }
+    return createMetadataByViewGroup(viewGroup);
   }
 }

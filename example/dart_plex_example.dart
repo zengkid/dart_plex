@@ -18,18 +18,23 @@ Future<void> main() async {
   var artistLibraries =
       library.directories.where((e) => e.type == 'artist').toList();
 
-  // var artistSection = await connection.sectionMetadatas(artistLibraries[0].key);
+  var artist = await connection.section<PlexArtistMetaData>(artistLibraries[0].key);
+  var metadatas = artist.metadatas;
+  metadatas.forEach(print);
   //
-  // var albumMetadata =
-  //     await connection.sectionMetadata(artistSection.metadatas[0].key);
-  // var trackMetadata =
-  //     await connection.sectionMetadata(albumMetadata.metadatas[0].key);
-  // print(trackMetadata);
+  //
+  var albumMetadata =
+      await connection.metadata<PlexAlbumMetaData>(artist.metadatas[0].key);
+  print(albumMetadata);
 
-  var allAlbums =
-      await connection.sectionMetadatas(artistLibraries[0].key, type: '9');
-  print(allAlbums);
-  var allTracks =
-      await connection.sectionMetadatas(artistLibraries[0].key, type: '10');
-  print(allTracks);
+  var trackMetadata =
+      await connection.metadata<PlexTrackMetaData>(albumMetadata.metadatas[0].key);
+  print(trackMetadata);
+
+  var allAlbum =
+      await connection.section<PlexAlbumMetaData>(artistLibraries[0].key, type: '9');
+  print(allAlbum.metadatas);
+  // var allTracks =
+  //     await connection.section(artistLibraries[0].key, type: '10');
+  // print(allTracks);
 }

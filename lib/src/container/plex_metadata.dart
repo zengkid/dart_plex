@@ -1,6 +1,6 @@
 import 'plex_data.dart';
 
-class PlexMetadata<T> extends PlexData {
+class PlexMetadata extends PlexData {
   String ratingKey;
   String key;
   String guid;
@@ -31,9 +31,9 @@ class PlexMetadata<T> extends PlexData {
       };
 }
 
-class PlexArtistMetaData extends PlexMetadata<PlexArtistMetaData> {}
+class PlexArtistMetaData extends PlexMetadata {}
 
-class PlexAlbumMetaData extends PlexMetadata<PlexAlbumMetaData> {
+class PlexAlbumMetaData extends PlexMetadata {
   String parentRatingKey;
   String parentGuid;
   String parentKey;
@@ -81,7 +81,7 @@ class PlexAlbumMetaData extends PlexMetadata<PlexAlbumMetaData> {
   }
 }
 
-class PlexTrackMetaData extends PlexMetadata<PlexTrackMetaData> {
+class PlexTrackMetaData extends PlexMetadata {
   String parentRatingKey;
   String grandparentRatingKey;
   String parentGuid;
@@ -142,7 +142,7 @@ class PlexTrackMetaData extends PlexMetadata<PlexTrackMetaData> {
   }
 }
 
-class PlexMedia extends PlexData<PlexMedia> {
+class PlexMedia extends PlexData {
   int id;
   int duration;
   int bitrate;
