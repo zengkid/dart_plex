@@ -92,6 +92,8 @@ class PlexTrackMetaData extends PlexMetadata {
   String parentTitle;
   int parentIndex;
   int index;
+  String thumb;
+  String parentThumb;
   int addedAt;
   int duration;
   List<PlexMedia> medias;
@@ -108,6 +110,8 @@ class PlexTrackMetaData extends PlexMetadata {
     parentTitle = json['parentTitle'];
     parentIndex = json['parentIndex'];
     index = json['index'];
+    thumb = json['thumb'];
+    parentThumb = json['parentThumb'];
     addedAt = json['addedAt'];
     duration = json['duration'];
 
@@ -134,6 +138,8 @@ class PlexTrackMetaData extends PlexMetadata {
       'parentTitle': parentTitle,
       'parentIndex': parentIndex,
       'index': index,
+      'thumb': thumb,
+      'parentThumb': parentThumb,
       'addedAt': addedAt,
       'duration': duration,
       'medias': medias,
